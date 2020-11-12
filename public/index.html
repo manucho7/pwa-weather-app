@@ -11,8 +11,6 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-
     <title>React PWA App</title>
   </head>
   <body>
@@ -21,7 +19,7 @@
     <script>
         if('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./serviceWorker')
+                navigator.serviceWorker.register('./serviceWorker.js')
                     .then((reg) => console.log('Success: ', reg.scope))
                     .catch((e) => console.log('Failure: ', e))
             })
