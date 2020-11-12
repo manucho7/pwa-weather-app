@@ -5,7 +5,7 @@ const self = this;
 
 //Install SW
 self.addEventListener('install', (event) => {
-    event.waitUntill(
+    event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
                 console.log('Opened cache');
@@ -27,5 +27,17 @@ self.addEventListener('fetch', (event) => {
 
 //Activate the SW
 self.addEventListener('activate', (event) => {
-
+    const cacheWhitelist = [];
+    cacheWhitelist.push(CACHE_NAME);
+    //Keeping only the specific cache we need
+    event.waitUntil(
+        caches.keys()
+            .then((cachesNames) => Promise.all(
+                cachesNames.map((cacheName) => {
+                    if(!cacheWhitelist.includes(cacheName)) {
+                        return caches.delete(cacheName)
+                    }
+                })
+            ))
+    )
 });
